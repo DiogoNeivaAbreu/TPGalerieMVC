@@ -14,7 +14,7 @@
 	<artifactId>galerie</artifactId>
 	<version>1.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
-	<name>Galerie d'art</name>
+	<name>Galerie d'art suite</name>
 	<description>Exercice "Galerie d'Art" en Spring-JPA</description>
 
 	<properties>

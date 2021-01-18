@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<!--/* 
+	Le contrôleur transmet deux informations à cette vue :
+		- tableaux : la liste des tableaux à afficher
+		- message : un éventuel message d'erreur ou d'information
+*/-->
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Liste des tableaux</title>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" href="../static/css/style.css"/>
+    </head>
+    <body>
+        <h1>Les tableaux</h1>
+        <!--/* On appelle l'URL 'add' du contôleur */-->
+        <a th:href="@{add}" href='formulaireTableau.html'>Ajouter un tableau</a>
+        <!--/* On affiche un éventuel message d'erreur */-->
+        <h3 th:text="${message}">Message de succès ou d'erreur</h3>	
+        <table>
+            <thead>
+                <tr>
+                    <th>Titre</th>
+                    <th>Support</th>
+                    <th>Dimension</th>
+                    <th>Auteur</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!--/* Pour chaque tableau t dans la liste 'tableaux' transmise par le contrôleur */-->
+                <tr th:each="t: ${tableaux}">
+                    <td th:text="${t.titre}">Titre du tableau</td>
+                    <td th:text="${t.support}">Support du tableau</td>
+                    <td th:text="${t.dimension}">Dimension du tableau</td>
+                    <td th:text="${t.auteur}">Auteur du tableau</td>
+                    <td><a th:href="@{delete(id=${g.id})}">Supprimer le tableau n° [[${g.id}]]</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>
