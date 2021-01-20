@@ -33,8 +33,11 @@
                     <td th:text="${t.titre}">Titre du tableau</td>
                     <td th:text="${t.support}">Support du tableau</td>
                     <td th:text="${t.dimension}">Dimension du tableau</td>
-                    <td th:text="${t.auteur}">Auteur du tableau</td>
-                    <td><a th:href="@{delete(id=${g.id})}">Supprimer le tableau n° [[${g.id}]]</a></td>
+                    <td>
+                        <span th:if="${t.auteur == NULL}">Inconnu</span>
+                        <span th:unless="${t.auteur == NULL}" th:text="${t.auteur.nom}">Auteur du tableau</span>
+                    </td>
+                    <td><a th:href="@{delete(id=${t.id})}">Supprimer le tableau n° [[${t.id}]]</a></td>
                 </tr>
             </tbody>
         </table>
