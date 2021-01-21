@@ -57,8 +57,8 @@ public class TableauController {
         try {
             // cf. https://www.baeldung.com/spring-data-crud-repository-save
             dao.save(tableau);
-            // Le code de la catégorie a été initialisé par la BD au moment de l'insertion
-            message = "Le tableau '" + tableau.getTitre() + "' a été correctement enregistrée";
+            // Le code du tableau a été initialisé par la BD au moment de l'insertion
+            message = "Le tableau '" + tableau.getTitre() + "' a été correctement enregistré";
         } catch (DataIntegrityViolationException e) {
             // Les noms sont définis comme 'UNIQUE' 
             // En cas de doublon, JPA lève une exception de violation de contrainte d'intégrité
@@ -69,5 +69,28 @@ public class TableauController {
         // Ce message est accessible et affiché dans la vue 'afficheTableau.html'
         redirectInfo.addFlashAttribute("message", message);
         return "redirect:show"; // POST-Redirect-GET : on se redirige vers l'affichage de la liste		
+    }
+    
+    /**
+     * Appelé par le lien 'Supprimer' dans 'afficheTableaux.html'
+     *
+     * @param tableau à partir de l'id du tableau transmis en paramètre, Spring fera une requête SQL SELECT pour
+     * chercher le tableau dans la base
+     * @param redirectInfo pour transmettre des paramètres lors de la redirection
+     * @return une redirection vers l'affichage de la liste des tableaux
+     */
+    @GetMapping(path = "delete")
+    public String supprimeUnTableauPuisMontreLaListe(@RequestParam("id") Tableau tableau, RedirectAttributes redirectInfo) {
+        String message = "Le tableau '" + tableau.getTitre() + "' a bien été supprimé";
+        try {
+            dao.delete(tableau); 
+        } catch (DataIntegrityViolationException e) {
+            message = "Erreur : Impossible de supprimer le tableau '" + tableau.getTitre() ;
+        }
+        // RedirectAttributes permet de transmettre des informations lors d'une redirection,
+        // Ici on transmet un message de succès ou d'erreur
+        // Ce message est accessible et affiché dans la vue 'afficheTableaux.html'
+        redirectInfo.addFlashAttribute("message", message);
+        return "redirect:show"; // on se redirige vers l'affichage de la liste
     }
 }
