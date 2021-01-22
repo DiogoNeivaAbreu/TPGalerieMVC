@@ -1,5 +1,6 @@
 package galerie.controller;
 
+import galerie.dao.ArtisteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,6 +22,9 @@ public class TableauController {
     @Autowired
     private TableauRepository dao;
     
+    @Autowired
+    private ArtisteRepository dao2;
+    
     /**
      * Affiche toutes les tableaux dans la base
      *
@@ -40,7 +44,8 @@ public class TableauController {
      * @return le nom de la vue à afficher ('formulaireTableau.html')
      */
     @GetMapping(path = "add")
-    public String montreLeFormulairePourAjout(@ModelAttribute("tableau") Tableau tableau) {
+    public String montreLeFormulairePourAjout(@ModelAttribute("tableau") Tableau tableau, Model model) {
+        model.addAttribute("artistes", dao2.findAll());
         return "formulaireTableau";
     }
     
@@ -87,9 +92,6 @@ public class TableauController {
         } catch (DataIntegrityViolationException e) {
             message = "Erreur : Impossible de supprimer le tableau '" + tableau.getTitre() ;
         }
-        // RedirectAttributes permet de transmettre des informations lors d'une redirection,
-        // Ici on transmet un message de succès ou d'erreur
-        // Ce message est accessible et affiché dans la vue 'afficheTableaux.html'
         redirectInfo.addFlashAttribute("message", message);
         return "redirect:show"; // on se redirige vers l'affichage de la liste
     }

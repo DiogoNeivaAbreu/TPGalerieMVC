@@ -24,14 +24,14 @@
 		</div>
                 <div class="column">
                         <label for="auteur">Auteur:</label>
-                        <select id="auteur" name="auteur" >
-                            <option value="Auteur inconnu" selected="selected">Auteur inconnu</option>
-                            <option th:each="t: ${tableaux}" th:value="${t.auteur.nom}" >[[${t.auteur.nom}]]</option>
+                        <select id="auteur" name="auteur">
+                            <option value="null" selected="selected">Auteur inconnu</option>
+                            <option th:each="a: ${artistes}" th:value="${a.id}" >[[${a.nom}]]</option>
                         </select>
                         <label for="support">Support:</label>
-                        <input type="text" th:field="*{support}" placeholder="Support, ex: Huile sur toile" id="support" name="support" />
+                        <input type="text" th:field="*{support}" placeholder="Support, ex: Huile sur toile"/>
                         <label for="dimension">Dimensions:</label>
-                        <input type="text" th:field="*{dimension}" placeholder="Dimensions, ex: 1m x 2m" id="dimension" name="dimension"/>
+                        <input type="text" th:field="*{dimension}" placeholder="Dimensions, ex: 1m x 2m"/>
                 </div>
 	</form>		
         <hr/>
