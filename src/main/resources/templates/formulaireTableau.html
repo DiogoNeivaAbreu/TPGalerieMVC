@@ -25,7 +25,7 @@
                 <div class="column">
                         <label for="auteur">Auteur:</label>
                         <select id="auteur" name="auteur">
-                            <option value="null" selected="selected">Auteur inconnu</option>
+                            <option value="0" selected="selected">Auteur inconnu</option>
                             <option th:each="a: ${artistes}" th:value="${a.id}" >[[${a.nom}]]</option>
                         </select>
                         <label for="support">Support:</label>
